@@ -15,7 +15,7 @@ VENV_DIR="$PROJECT_ROOT/venv"
 LAKE_DIR="$PROJECT_ROOT/.lake"
 
 # Define Python script paths
-PROVE_PY="$UTILS_DIR/prove.py"
+SOLVE_PY="$UTILS_DIR/solve.py"
 STATUS_PY="$UTILS_DIR/status.py"
 
 # Colors for output

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Aristotle Prover Script
-# Activates virtual environment and runs the prove.py script
+# Aristotle Solver Script
+# Activates virtual environment and runs the solve.py script
 
 set -e  # Exit on error
 
@@ -14,6 +14,6 @@ ensure_project_root
 # Activate virtual environment
 activate_venv
 
-# Run the prove.py script
-echo -e "${BLUE}Running Aristotle prover...${NC}"
-python "$PROVE_PY" "$@"
+# Run the solve.py script
+echo -e "${BLUE}Running Aristotle solver...${NC}"
+python "$SOLVE_PY" "$@"

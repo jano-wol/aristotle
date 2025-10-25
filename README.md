@@ -49,24 +49,24 @@ aristotle/
 ├── solutions/          # Generated solutions from Aristotle (gitignored)
 └── scripts/            # Scripts directory
     ├── configure.sh    # Setup script
-    ├── prove.sh        # Aristotle prover wrapper
+    ├── solve.sh        # Aristotle solver wrapper
     ├── status.sh       # Status checker wrapper
     └── utils/          # Python utilities
         ├── init.sh     # Common script initialization
-        ├── prove.py    # Aristotle prover
+        ├── solve.py    # Aristotle solver
         ├── status.py   # Status checker
         └── utils.py    # Shared utilities
 ```
 
 ## Usage
 
-### Run Aristotle Prover
+### Run Aristotle Solver
 
 ```bash
-./scripts/prove.sh
+./scripts/solve.sh
 ```
 
-This will activate the virtual environment and run the prover on the default problem.
+This will activate the virtual environment and run the solver on the default problem.
 
 ### Check Project Status
 
