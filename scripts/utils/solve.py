@@ -1,6 +1,7 @@
 import asyncio
 import aristotlelib
 import logging
+from pathlib import Path
 
 from utils import load_api_key
 
@@ -12,9 +13,76 @@ logging.basicConfig(
     format="%(levelname)s - %(name)s - %(message)s"
 )
 
+def list_problems():
+    """List all available problem files in the problems directory."""
+    # Get the problems directory (assuming script is in scripts/utils/)
+    script_dir = Path(__file__).parent
+    problems_dir = script_dir.parent.parent / "problems"
+
+    if not problems_dir.exists():
+        print(f"Error: Problems directory not found at {problems_dir}")
+        return []
+
+    # Find all .lean files
+    lean_files = sorted(problems_dir.glob("*.lean"))
+
+    if not lean_files:
+        print("No problem files found in problems/ directory")
+        return []
+
+    return lean_files
+
 async def main():
-    # Solve a theorem from a Lean file
-    solution_path = await aristotlelib.Project.prove_from_file("/home/jw/Repositories/aristotle/problems/komal.lean")
+    # List available problems
+    problems = list_problems()
+
+    if not problems:
+        return
+
+    print("Available problems:")
+    print()
+    for i, problem in enumerate(problems, 1):
+        print(f"  {i}. {problem.stem}")
+    print()
+
+    # Ask user which problem to solve
+    while True:
+        choice = input("Which problem would you like to solve? (enter number or name): ").strip()
+
+        # Try to parse as number
+        if choice.isdigit():
+            idx = int(choice) - 1
+            if 0 <= idx < len(problems):
+                selected_problem = problems[idx]
+                break
+            else:
+                print(f"Invalid number. Please choose between 1 and {len(problems)}")
+                continue
+
+        # Try to match by name
+        matching = [p for p in problems if p.stem == choice]
+        if matching:
+            selected_problem = matching[0]
+            break
+
+        # Try partial match
+        matching = [p for p in problems if choice.lower() in p.stem.lower()]
+        if len(matching) == 1:
+            selected_problem = matching[0]
+            break
+        elif len(matching) > 1:
+            print(f"Ambiguous choice. Did you mean: {', '.join(p.stem for p in matching)}?")
+            continue
+
+        print(f"Problem '{choice}' not found. Please try again.")
+
+    print()
+    print(f"Solving: {selected_problem.stem}")
+    print()
+
+    # Solve the selected problem
+    solution_path = await aristotlelib.Project.prove_from_file(str(selected_problem))
+    print()
     print(f"Solution saved to: {solution_path}")
 
 asyncio.run(main())
