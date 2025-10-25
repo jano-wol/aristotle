@@ -15,7 +15,7 @@ Lean theorem proving projects using Mathlib and the Aristotle engine.
 Run the configuration script:
 
 ```bash
-./configure.sh
+./scripts/configure.sh
 ```
 
 This will:
@@ -36,33 +36,44 @@ The script is **idempotent** - safe to run multiple times.
 
 ```
 aristotle/
-├── configure.sh         # Setup script
 ├── requirements.txt     # Python dependencies
 ├── lakefile.toml        # Lean project configuration
 ├── lean-toolchain       # Lean version
 ├── .lake/              # Lean dependencies (5.5GB, gitignored)
 ├── venv/               # Python virtual environment (gitignored)
 ├── projects/           # Your Lean projects
-│   ├── PPPEasy.lean
-│   ├── PPPOpen.lean
+│   ├── komal.lean
+│   ├── ppp_easy.lean
+│   ├── ppp_open.lean
 │   └── ...
-├── prove.py            # Aristotle prover script
-└── status.py           # Status checking script
+└── scripts/            # Scripts directory
+    ├── configure.sh    # Setup script
+    ├── prove.sh        # Aristotle prover wrapper
+    ├── status.sh       # Status checker wrapper
+    └── utils/          # Python utilities
+        ├── init.sh     # Common script initialization
+        ├── prove.py    # Aristotle prover
+        ├── status.py   # Status checker
+        └── utils.py    # Shared utilities
 ```
 
 ## Usage
 
-### Activate Python Environment
-
-```bash
-source venv/bin/activate
-```
-
 ### Run Aristotle Prover
 
 ```bash
-python prove.py
+./scripts/prove.sh
 ```
+
+This will activate the virtual environment and run the prover on the default problem.
+
+### Check Project Status
+
+```bash
+./scripts/status.sh
+```
+
+This will list all your Aristotle projects and their status.
 
 ### Build Lean Projects
 
@@ -85,3 +96,5 @@ All Mathlib imports will work automatically!
 - The `.lake/` directory (5.5GB) is shared by all projects
 - The `venv/` directory contains Python dependencies
 - Both are in `.gitignore` and will be recreated by `configure.sh`
+- All scripts in `scripts/` use `scripts/utils/init.sh` for common initialization
+- Scripts automatically activate the virtual environment when needed

@@ -6,19 +6,16 @@
 
 set -e  # Exit on error
 
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$PROJECT_DIR"
+# Source common initialization
+source "$(dirname "$0")/utils/init.sh"
+
+# Change to project root
+ensure_project_root
 
 echo "================================================"
 echo "Aristotle Project Setup"
 echo "================================================"
 echo ""
-
-# Colors for output
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
 
 # ============================================
 # 1. Check Prerequisites
@@ -51,18 +48,18 @@ echo ""
 # 2. Setup Python Virtual Environment
 # ============================================
 
-if [ -d "venv" ]; then
+if [ -d "$VENV_DIR" ]; then
     echo -e "${YELLOW}Python virtual environment already exists${NC}"
 else
     echo -e "${BLUE}Creating Python virtual environment...${NC}"
-    python3 -m venv venv
+    python3 -m venv "$VENV_DIR"
     echo -e "${GREEN}✓ Python virtual environment created${NC}"
 fi
 
 echo -e "${BLUE}Installing Python dependencies...${NC}"
-source venv/bin/activate
+source "$VENV_DIR/bin/activate"
 pip install --upgrade pip -q
-pip install -r requirements.txt
+pip install -r "$PROJECT_ROOT/requirements.txt"
 echo -e "${GREEN}✓ Python dependencies installed${NC}"
 echo ""
 
@@ -70,7 +67,7 @@ echo ""
 # 3. Setup Lean Dependencies
 # ============================================
 
-if [ -d ".lake" ]; then
+if [ -d "$LAKE_DIR" ]; then
     echo -e "${YELLOW}Lean .lake directory already exists${NC}"
     echo -e "${BLUE}Verifying Lean dependencies...${NC}"
     # Just verify, don't rebuild unless necessary
@@ -116,14 +113,15 @@ echo "================================================"
 echo -e "${GREEN}Setup Complete!${NC}"
 echo "================================================"
 echo ""
-echo "To activate the Python environment:"
-echo "  source venv/bin/activate"
+echo "Available scripts:"
+echo "  scripts/prove.sh   : Run Aristotle prover"
+echo "  scripts/status.sh  : Check project status"
 echo ""
 echo "To build Lean projects:"
 echo "  lake build"
 echo ""
 echo "Project structure:"
-echo "  - projects/     : Your Lean theorem proving projects"
-echo "  - prove.py      : Aristotle prover script"
-echo "  - status.py     : Status checking script"
+echo "  - projects/         : Your Lean theorem proving projects"
+echo "  - scripts/          : Shell scripts (prove.sh, status.sh)"
+echo "  - scripts/utils/    : Python utilities"
 echo ""

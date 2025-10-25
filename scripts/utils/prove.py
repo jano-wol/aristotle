@@ -14,7 +14,7 @@ logging.basicConfig(
 
 async def main():
     # Prove a theorem from a Lean file
-    solution_path = await aristotlelib.Project.prove_from_file("/home/jw/Repositories/gadgets/aristotle/projects/komal.lean")
+    solution_path = await aristotlelib.Project.prove_from_file("/home/jw/Repositories/aristotle/projects/komal.lean")
     print(f"Solution saved to: {solution_path}")
 
 asyncio.run(main())
