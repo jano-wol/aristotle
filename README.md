@@ -24,7 +24,7 @@ To solve a problem, call from the root of the repo:
 
 On first run, you'll be prompted to create an API key file - follow the prompt's instructions to place it in the correct location. Select a problem from the interactive list. Generated solutions can be collected in `solutions/`.
 
-To check project status:
+To check the status of submitted problems on the Aristotle API (queued, in progress, completed):
 ```bash
 ./scripts/status.sh
 ```
