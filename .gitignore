@@ -1,0 +1,22 @@
+# Lake build artifacts
+/.lake/
+/build/
+
+# Lean cache
+*.olean
+*.ilean
+*.trace
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# API Keys and Secrets
+aristotle_api_key.txt
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
