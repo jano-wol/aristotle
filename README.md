@@ -39,13 +39,14 @@ aristotle/
 ├── requirements.txt     # Python dependencies
 ├── lakefile.toml        # Lean project configuration
 ├── lean-toolchain       # Lean version
-├── .lake/              # Lean dependencies (5.5GB, gitignored)
+├── .lake/              # Lean dependencies (6GB, gitignored)
 ├── venv/               # Python virtual environment (gitignored)
-├── projects/           # Your Lean projects
+├── problems/           # Your Lean theorem proving problems
 │   ├── komal.lean
 │   ├── ppp_easy.lean
 │   ├── ppp_open.lean
 │   └── ...
+├── solutions/          # Generated solutions from Aristotle (gitignored)
 └── scripts/            # Scripts directory
     ├── configure.sh    # Setup script
     ├── prove.sh        # Aristotle prover wrapper
@@ -81,20 +82,21 @@ This will list all your Aristotle projects and their status.
 lake build
 ```
 
-### Add New Projects
+### Add New Problems
 
-Simply create a new `.lean` file in the `projects/` directory:
+Simply create a new `.lean` file in the `problems/` directory:
 
 ```bash
-touch projects/MyNewTheorem.lean
+touch problems/MyNewTheorem.lean
 ```
 
 All Mathlib imports will work automatically!
 
 ## Notes
 
-- The `.lake/` directory (5.5GB) is shared by all projects
+- The `.lake/` directory (6GB) contains Lean dependencies, shared by all problems
 - The `venv/` directory contains Python dependencies
-- Both are in `.gitignore` and will be recreated by `configure.sh`
+- The `solutions/` directory will contain generated solutions from Aristotle
+- All are in `.gitignore` and `.lake/` and `venv/` will be recreated by `configure.sh`
 - All scripts in `scripts/` use `scripts/utils/init.sh` for common initialization
 - Scripts automatically activate the virtual environment when needed

@@ -12,6 +12,9 @@ venv/
 __pycache__/
 *.pyc
 
+# Aristotle generated solutions
+solutions/
+
 # API Keys and Secrets
 aristotle_api_key.txt
 

@@ -9,7 +9,8 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 # Define important directories
 SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 UTILS_DIR="$SCRIPTS_DIR/utils"
-PROJECTS_DIR="$PROJECT_ROOT/projects"
+PROBLEMS_DIR="$PROJECT_ROOT/problems"
+SOLUTIONS_DIR="$PROJECT_ROOT/solutions"
 VENV_DIR="$PROJECT_ROOT/venv"
 LAKE_DIR="$PROJECT_ROOT/.lake"
 
