@@ -77,7 +77,7 @@ if [ -d "$LAKE_DIR" ]; then
     }
 else
     echo -e "${BLUE}Setting up Lean dependencies...${NC}"
-    echo "This will download ~5.5GB of Mathlib and may take several minutes..."
+    echo "This will download ~6GB of Mathlib and may take several minutes..."
     lake update
     echo -e "${GREEN}✓ Lean dependencies installed${NC}"
 fi
