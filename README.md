@@ -29,6 +29,11 @@ To check the status of submitted problems on the Aristotle API (queued, in progr
 ./scripts/status.sh
 ```
 
+To clean up all generated files (venv, .lake, API key):
+```bash
+./scripts/clear.sh
+```
+
 ## Notes
 
 - Uses Lean `v4.20.0-rc5` and Mathlib aligned with current Aristotle.
