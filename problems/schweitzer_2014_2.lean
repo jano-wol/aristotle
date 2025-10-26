@@ -35,7 +35,7 @@ def Interval.unionLength (I J : Interval) : ℝ :=
   max I.b J.b - min I.a J.a
 
 /-- The answer 2 is to be determined by the solver of the original problem. -/
-theorem _root_.schweizer2014q2 (k : ℕ) (hk : 1 ≤ k) (I : Fin k → Interval) :
+theorem schweizer2014q2 (k : ℕ) (hk : 1 ≤ k) (I : Fin k → Interval) :
     (k : ℝ) ^ 2 ≤ ∑ i : Fin k, ∑ j : Fin k,
       if ¬(I i).disjoint (I j) then 1 / (I i).unionLength (I j) else 0 := by
   sorry
