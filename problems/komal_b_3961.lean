@@ -1,7 +1,7 @@
 import Mathlib.SetTheory.Cardinal.Basic
 
 /-!
-# Komal problem
+# Komal problem B.3961
 Let `a` and `b` positive integers, so that for any `n` positive integer `a^n + n ∣ b^n + n`.
 Show that `a = b`.
 -/
@@ -14,4 +14,3 @@ theorem _root_.komal_b_3961 :
   sorry
 
 end KomalB3961
-
