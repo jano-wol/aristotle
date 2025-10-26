@@ -30,7 +30,7 @@ To check the status of submitted problems on the Aristotle API (queued, in progr
 ./scripts/status.sh
 ```
 
-To retrieve and save a solution for a previously completed project:
+To retrieve a solution for a completed project (useful if `solve.sh` was interrupted locally while solving continued on the Aristotle server):
 ```bash
 ./scripts/get_solution.sh
 ```
