@@ -29,6 +29,18 @@ To check the status of submitted problems on the Aristotle API (queued, in progr
 ./scripts/status.sh
 ```
 
+To retrieve and save a solution for a completed project:
+```bash
+./scripts/get_solution.sh
+```
+
+Or specify a project ID directly:
+```bash
+./scripts/get_solution.sh <project-id>
+```
+
+Solutions will be saved to `solutions/<project-id>.lean`.
+
 To clean up all generated files (venv, .lake, API key):
 ```bash
 ./scripts/clear.sh

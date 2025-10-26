@@ -15,6 +15,7 @@ VENV_DIR="$PROJECT_ROOT/venv"
 LAKE_DIR="$PROJECT_ROOT/.lake"
 
 # Define Python script paths
+GET_SOLUTION_PY="$UTILS_DIR/get_solution.py"
 SOLVE_PY="$UTILS_DIR/solve.py"
 STATUS_PY="$UTILS_DIR/status.py"
 
