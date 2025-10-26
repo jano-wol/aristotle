@@ -2,6 +2,7 @@ import asyncio
 import aristotlelib
 import logging
 from pathlib import Path
+from datetime import datetime
 
 from utils import load_api_key
 
@@ -80,9 +81,20 @@ async def main():
     print(f"Solving: {selected_problem.stem}")
     print()
 
-    # Solve the selected problem
-    solution_path = await aristotlelib.Project.prove_from_file(str(selected_problem))
+    # Prepare solution path in solutions/ directory
+    script_dir = Path(__file__).parent
+    solutions_dir = script_dir.parent.parent / "solutions"
+
+    # Create solutions directory if it doesn't exist
+    solutions_dir.mkdir(exist_ok=True)
+
+    # Create a filename based on problem name and timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    solution_file = solutions_dir / f"{selected_problem.stem}_{timestamp}.lean"
+
+    # Solve the selected problem and save directly to the specified path
+    await aristotlelib.Project.prove_from_file(str(selected_problem), output_file_path=str(solution_file))
     print()
-    print(f"Solution saved to: {solution_path}")
+    print(f"Solution saved to: {solution_file}")
 
 asyncio.run(main())
