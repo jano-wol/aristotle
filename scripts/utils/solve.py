@@ -93,7 +93,7 @@ async def main():
     solution_file = solutions_dir / f"{selected_problem.stem}_{timestamp}.lean"
 
     # Solve the selected problem and save directly to the specified path
-    await aristotlelib.Project.prove_from_file(str(selected_problem), output_file_path=str(solution_file))
+    await aristotlelib.Project.prove_from_file(input_file_path=str(selected_problem), output_file_path=str(solution_file))
     print()
     print(f"Solution saved to: {solution_file}")
 
