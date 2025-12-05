@@ -8,7 +8,6 @@ Show that `a = b`.
 
 namespace KomalB3961
 
-/-- The answer 2 is to be determined by the solver of the original problem. -/
 theorem komal_b_3961 :
     ∀ a b : ℕ+, (∀ n : ℕ+, ((a : ℕ) ^ (n : ℕ) + n ∣ (b : ℕ) ^ (n : ℕ) + n)) → a = b := by
   sorry
