@@ -83,18 +83,18 @@ async def main():
 
     # Prepare solution path in solutions/ directory
     script_dir = Path(__file__).parent
-    solutions_dir = script_dir.parent.parent / "solutions"
+    server_responses_dir = script_dir.parent.parent / "server_responses"
 
     # Create solutions directory if it doesn't exist
-    solutions_dir.mkdir(exist_ok=True)
+    server_responses_dir.mkdir(exist_ok=True)
 
     # Create a filename based on problem name and timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    solution_file = solutions_dir / f"{selected_problem.stem}_{timestamp}.lean"
+    response_file = server_responses_dir / f"{selected_problem.stem}_{timestamp}.lean"
 
     # Solve the selected problem and save directly to the specified path
     await aristotlelib.Project.prove_from_file(input_file_path=str(selected_problem), output_file_path=str(solution_file))
     print()
-    print(f"Solution saved to: {solution_file}")
+    print(f"Response saved to: {response_file}")
 
 asyncio.run(main())

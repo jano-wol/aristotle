@@ -13,9 +13,6 @@ import Mathlib.GroupTheory.GroupAction.Basic
 import Mathlib.Data.Fintype.Card
 import Mathlib.Data.Rat.Defs
 import Mathlib.Data.Set.Card
-import Mathlib
-
-set_option maxHeartbeats 0
 
 /-!
 # Permutations and Pigeonhole Principle (Easy Version)
@@ -93,7 +90,7 @@ lemma G_transitive (n : ℕ) (P : Set (Equiv.Perm (Fin n)))
 /-
 The graph defined by E is regular, meaning every vertex has the same out-degree.
 -/
-noncomputable def out_degree (n : ℕ) (P : Set (Equiv.Perm (Fin n))) (a b : Fin n) (v : Fin n) : ℕ :=
+def out_degree (n : ℕ) (P : Set (Equiv.Perm (Fin n))) (a b : Fin n) (v : Fin n) : ℕ :=
   { w | (v, w) ∈ E n P a b }.ncard
 
 lemma graph_regular (n : ℕ) (P : Set (Equiv.Perm (Fin n))) (a b : Fin n)
@@ -123,7 +120,7 @@ lemma graph_regular (n : ℕ) (P : Set (Equiv.Perm (Fin n))) (a b : Fin n)
 /-
 Define the in-degree of a vertex v as the number of edges ending at v.
 -/
-noncomputable def in_degree (n : ℕ) (P : Set (Equiv.Perm (Fin n))) (a b : Fin n) (v : Fin n) : ℕ :=
+def in_degree (n : ℕ) (P : Set (Equiv.Perm (Fin n))) (a b : Fin n) (v : Fin n) : ℕ :=
   { u | (u, v) ∈ E n P a b }.ncard
 
 /-
