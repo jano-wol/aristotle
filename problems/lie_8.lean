@@ -8,16 +8,17 @@ open LieAlgebra LieModule Module
 variable {H : LieSubalgebra K L} [H.IsCartanSubalgebra]
 variable [IsKilling K L] [IsTriangularizable K H L]
 
+lemma exists_lieIdeal_generating_set_mem_genWeightSpace (I : LieIdeal K L) :
+    ∃ S : Set L, Submodule.span K S = I.toSubmodule ∧ ∀ x ∈ S, ∃ χ : Weight K H L, x ∈ genWeightSpace L χ := by admit
+
 /--
   PROVIDED SOLUTION:
-  Since I is an ideal, H acts on I via ad. Elements of H act semisimply, so I has a basis of
-  common eigenvectors for ad H. These are weight vectors, so I is spanned by I ∩ (weight spaces).
+  Use `exists_lieIdeal_generating_set_mem_genWeightSpace`: I has a generating set S where each
+  element lies in some weight space. Each s ∈ S satisfies s ∈ I ⊓ genWeightSpace L χ for some χ,
+  so Span S ≤ ⨆ χ, I ⊓ genWeightSpace L χ. The reverse inclusion is trivial.
 
   KEY LEMMAS:
-  - `LieAlgebra.IsKilling.isSemisimple_ad_of_mem_isCartanSubalgebra`:
-      For x ∈ H, `(ad K L x).IsSemisimple`
-  - `LieModule.iSup_genWeightSpace_eq_top'`: Weight spaces span L
-  - `LieModule.iSupIndep_genWeightSpace'`: Weight spaces are independent
+  - `exists_lieIdeal_generating_set_mem_genWeightSpace`: I has generators in weight spaces
 -/
 lemma lieIdeal_eq_iSup_inf_genWeightSpace (I : LieIdeal K L) :
     I.toSubmodule = ⨆ χ : Weight K H L, I.toSubmodule ⊓ (genWeightSpace L χ).toSubmodule := by
