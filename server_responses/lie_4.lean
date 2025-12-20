@@ -114,8 +114,7 @@ end AristotleLemmas
     (hq : ∀ i, q ∈ Module.End.invtSubmodule ((rootSystem H).reflection i)) :
     invtSubmoduleToLieIdeal q (by exact hq) = ⊥ ↔ q = ⊥ := by
   refine' ⟨ fun h => _, fun h => _ ⟩;
-  · -- By `RootPairing.invtRootSubmodule.eq_bot_iff`, since `q ≠ ⊥`, there exists a root `i` such that `P.root i ∈ q`.
-    by_contra hq_nonzero
+  · by_contra hq_nonzero
     obtain ⟨i, hi⟩ : ∃ i : { x : LieModule.Weight K (↥H) L // x ∈ LieSubalgebra.root }, (LieAlgebra.IsKilling.rootSystem H).toRootPairing.root i ∈ q := by
       have := @RootPairing.invtRootSubmodule.eq_bot_iff;
       contrapose! this;
@@ -129,7 +128,6 @@ end AristotleLemmas
       exact?;
       exact?;
       exact Or.inr ⟨ by simpa using hq_nonzero, this ⟩;
-    -- By `LieAlgebra.IsKilling.sl2SubmoduleOfRoot_ne_bot`, `sl2SubmoduleOfRoot i ≠ ⊥`.
     have h_sl2_nonzero : sl2SubmoduleOfRoot (by
     aesop : i.val.IsNonZero) ≠ ⊥ := by
       all_goals generalize_proofs at *;
