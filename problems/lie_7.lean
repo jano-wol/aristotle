@@ -9,15 +9,17 @@ variable {H : LieSubalgebra K L} [H.IsCartanSubalgebra]
 variable [IsKilling K L] [IsTriangularizable K H L]
 
 
-lemma iSup_rootSpace_eq_top :
-    H.toLieSubmodule ⊔ ⨆ α : {α : Weight K H L // α.IsNonZero}, genWeightSpace L α = ⊤ := by
-  admit
+lemma lieIdeal_eq_iSup_inf_genWeightSpace (I : LieIdeal K L) :
+    I.toSubmodule = ⨆ χ : Weight K H L, I.toSubmodule ⊓ (genWeightSpace L χ).toSubmodule := by admit
 
 /--
-  PROVIDED SOLUTION::
-  Since H consists of semisimple elements, it acts diagonalisably on I, and so I has a basis of common
-  eigenvectors for the elements of ad H. As we know that each root space L α is 1-dimensional by
-  LieAlgebra.IsKilling.finrank_rootSpace_eq_one, this implies lieIdeal_eq_iSup_inf.
+  PROVIDED SOLUTION:
+  Use `lieIdeal_eq_iSup_inf_genWeightSpace` and split the sup into zero and nonzero weights.
+  For the zero weight, `genWeightSpace L 0 = H` by `rootSpace_zero_eq`.
+
+  KEY LEMMAS:
+  - `lieIdeal_eq_iSup_inf_genWeightSpace`: I = ⨆ χ, I ⊓ genWeightSpace L χ
+  - `LieAlgebra.rootSpace_zero_eq`: genWeightSpace L 0 = H
 -/
 lemma lieIdeal_eq_iSup_inf (I : LieIdeal K L) :
     I.toSubmodule = (I.toSubmodule ⊓ H.toLieSubmodule.toSubmodule) ⊔
