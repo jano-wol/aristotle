@@ -1,3 +1,16 @@
+/-
+This file was edited by Aristotle.
+
+Lean version: leanprover/lean4:v4.24.0
+Mathlib version: f897ebcf72cd16f89ab4577d0c826cd14afaafc7
+This project request had uuid: b22d52fe-f177-46b1-bb81-2607181777d7
+
+The following was proved by Aristotle:
+
+- @[simp] lemma invtSubmoduleToLieIdeal_top :
+    invtSubmoduleToLieIdeal (⊤ : Submodule K (Module.Dual K H)) (by simp) = ⊤
+-/
+
 import Mathlib.Algebra.Lie.Weights.IsSimple
 import Mathlib.LinearAlgebra.RootSystem.RootPositive
 import Mathlib.LinearAlgebra.RootSystem.WeylGroup
@@ -7,11 +20,17 @@ import Mathlib.Algebra.Lie.Weights.RootSystem
 import Mathlib.LinearAlgebra.Dual.Defs
 import Mathlib.LinearAlgebra.RootSystem.Finite.Lemmas
 
+
 open Function Set
+
 open Submodule (span span_le)
+
 open LinearMap (ker)
+
 open MulAction (orbit mem_orbit_self mem_orbit_iff)
+
 open Module.End (invtSubmodule)
+
 open scoped MonoidAlgebra
 
 namespace RootPairing
@@ -26,6 +45,7 @@ class IsRootSystem : Prop where
 @[deprecated (since := "2025-12-14")] alias RootSystem := IsRootSystem
 
 attribute [simp] IsRootSystem.span_root_eq_top
+
 attribute [simp] IsRootSystem.span_coroot_eq_top
 
 @[simp] lemma coe_bot : ((⊥ : P.invtRootSubmodule) : Submodule R M) = ⊥ := rfl
@@ -44,9 +64,10 @@ end RootPairing
 namespace LieAlgebra.IsKilling
 
 variable {K L : Type*} [Field K] [CharZero K] [LieRing L] [LieAlgebra K L] [FiniteDimensional K L]
-variable {H : LieSubalgebra K L} [H.IsCartanSubalgebra]
-variable [LieAlgebra.IsKilling K L] [LieModule.IsTriangularizable K H L]
 
+variable {H : LieSubalgebra K L} [H.IsCartanSubalgebra]
+
+variable [LieAlgebra.IsKilling K L] [LieModule.IsTriangularizable K H L]
 
 lemma span_coroot_eq_top :
     Submodule.span K (Set.range (coroot : LieModule.Weight K H L → H)) = ⊤ := by
@@ -95,7 +116,6 @@ lemma iSup_rootSpace_eq_top :
     apply le_iSup_of_le ⟨α, (Finset.mem_filter_univ α).mpr hα⟩
     exact le_rfl
 
-
 /--
   PROVIDED SOLUTION:
   Use iSup_rootSpace_eq_top, and rootSpace_le_sl2SubmoduleOfRoot and H_le_iSup_sl2SubmoduleOfRoot
@@ -104,6 +124,23 @@ lemma iSup_rootSpace_eq_top :
     invtSubmoduleToLieIdeal (⊤ : Submodule K (Module.Dual K H)) (by simp) = ⊤ := by
   rw [← LieSubmodule.toSubmodule_inj, invtSubmoduleToLieIdeal, LieSubmodule.iSup_toSubmodule,
     LieSubmodule.top_toSubmodule]
-  sorry
+  -- Since each sl2SubmoduleOfRoot is a submodule of L and the union is the supremum of these submodules, the supremum should be the entire L.
+  have h_sup : ⨆ (α : LieModule.Weight K H L) (hα : α.IsNonZero), sl2SubmoduleOfRoot hα = ⊤ := by
+    -- Since $H$ is contained in the supremum of the $sl2SubmoduleOfRoot$'s and the supremum of the $rootSpace$'s is $L$, the supremum of the $sl2SubmoduleOfRoot$'s must be $L$.
+    have h_sup : H.toLieSubmodule ⊔ ⨆ (α : LieModule.Weight K H L), rootSpace H α ≤ ⨆ (α : LieModule.Weight K H L), ⨆ (hα : α.IsNonZero), sl2SubmoduleOfRoot hα := by
+      refine' sup_le _ _;
+      · exact?;
+      · refine' iSup_le fun α => _;
+        by_cases hα : α.IsNonZero <;> simp_all +decide [ LieAlgebra.rootSpace ];
+        · exact le_iSup₂_of_le α hα ( by exact? );
+        · exact?;
+    simp_all +decide [ Submodule.eq_top_iff' ];
+    refine' eq_top_iff.mpr _;
+    have := iSup_rootSpace_eq_top ( L := L ) ( H := H );
+    rw [ ← this ];
+    exact sup_le h_sup.1 ( iSup_le fun α => h_sup.2 α );
+  convert h_sup.ge;
+  simp +decide [ Submodule.mem_iSup ];
+  simp +decide [ Submodule.eq_top_iff', iSup_subtype ]
 
 end LieAlgebra.IsKilling
