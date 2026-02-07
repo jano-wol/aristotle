@@ -198,8 +198,9 @@ lemma weight_apply_eq_zero_of_not_mem_lieIdealRootSet (I : LieIdeal K L)
     exact lie_mem_left K L I x y hxI
   rwa [I.toSubmodule.smul_mem_iff (by exact_mod_cast h)] at hsmul
 
-/-- ⊆ direction: `I ∩ H` is contained in the coroot span of roots in `Φ_I`.
-
+/--
+PROVIDED SOLUTION:
+⊆ direction: `I ∩ H` is contained in the coroot span of roots in `Φ_I`.
 Proof sketch: For `h ∈ I ∩ H`:
 1. `β(h) = 0` for all roots `β ∉ Φ_I` (by `weight_apply_eq_zero_of_not_mem_lieIdealRootSet`)
 2. The coroots span `H` (by `biSup_corootSubmodule_eq_cartan`)
