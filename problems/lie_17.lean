@@ -79,11 +79,50 @@ lemma lieIdealToInvtRootSubmodule_mono {I J : LieIdeal K L} (h : I ≤ J) :
 
 /-! ### Order isomorphism (skeleton) -/
 
+
+omit [CharZero K] [IsKilling K L] [IsTriangularizable K H L] in
+/-- Coroot submodules of roots in the ideal's root set lie in the Cartan (they are images of H). -/
+lemma corootSubmodule_le_cartan (α : Weight K H L) :
+    (corootSubmodule α).toSubmodule ≤ H.toSubmodule :=
+  LieSubmodule.map_incl_le
+
+omit [CharZero K] [IsKilling K L] [IsTriangularizable K H L] in
+/-- If `g_α ⊆ I`, then the coroot submodule of `α` is contained in `I`.
+This uses that `I` is a Lie ideal: brackets `⁅g_{-α}, g_α⁆ ⊆ I` since `g_α ⊆ I`. -/
+lemma corootSubmodule_le_lieIdeal (I : LieIdeal K L) {α : Weight K H L}
+    (hα : (rootSpace H α).toSubmodule ≤ I.toSubmodule) :
+    (corootSubmodule α).toSubmodule ≤ I.toSubmodule := by
+  intro x hx
+  obtain ⟨h, hh, rfl⟩ := (LieSubmodule.mem_map _).mp hx
+  rw [mem_corootSpace] at hh
+  refine (Submodule.span_le.mpr ?_) hh
+  rintro _ ⟨y, hy, _, -, rfl⟩
+  exact lie_mem_left K L I y _ (hα hy)
+
+omit [CharZero K] [IsKilling K L] [IsTriangularizable K H L] in
+/-- ⊇ direction: the coroot span of roots in `Φ_I` is contained in `I ∩ H`. -/
+lemma coroot_span_le_inf_cartan (I : LieIdeal K L) :
+    ⨆ α ∈ lieIdealRootSet (H := H) I, (corootSubmodule α.1).toSubmodule ≤
+      I.toSubmodule ⊓ H.toSubmodule :=
+  iSup₂_le fun α hα ↦ le_inf (corootSubmodule_le_lieIdeal I hα) (corootSubmodule_le_cartan α.1)
+
+/--
+  PROVIDED SOLUTION:
+  ⊆ direction: `I ∩ H` is contained in the coroot span of roots in `Φ_I`.
+  Any `h ∈ I ∩ H` satisfies `β(h) = 0` for all roots `β ∉ Φ_I` (since `[h, g_β] ⊆ I ∩ g_β = 0`),
+  which forces `h` to lie in the coroot span of `Φ_I` by non-degeneracy of the root system.
+-/
+lemma inf_cartan_le_coroot_span (I : LieIdeal K L) :
+    I.toSubmodule ⊓ H.toSubmodule ≤
+      ⨆ α ∈ lieIdealRootSet (H := H) I, (corootSubmodule α.1).toSubmodule := by
+  sorry
+
 /-- The Cartan part `I ∩ H` is determined by the root set: it equals the span of the coroots
 corresponding to roots in `Φ_I`. This is the key fact that makes the forward map injective. -/
 lemma lieIdeal_inf_cartan_eq_coroot_span (I : LieIdeal K L) :
     I.toSubmodule ⊓ H.toSubmodule =
-      ⨆ α ∈ lieIdealRootSet (H := H) I, (corootSubmodule α.1).toSubmodule := by sorry
+      ⨆ α ∈ lieIdealRootSet (H := H) I, (corootSubmodule α.1).toSubmodule :=
+  le_antisymm (inf_cartan_le_coroot_span I) (coroot_span_le_inf_cartan I)
 
 /-- The lattice of Lie ideals of a Killing Lie algebra is order-isomorphic to the lattice of
 invariant root submodules of the associated root system. -/
