@@ -1,41 +1,19 @@
 # Aristotle Project
 
-Shell scripts for easier interaction with the Aristotle API. Provides convenient commands to submit Lean theorem proving problems and retrieve solutions.
+Lean project scaffold for theorem proving problems, aligned with the [Aristotle](https://aristotle.harmonic.fun) Mathlib version.
 
 ## Requirements
 
-- Aristotle API key (subscribe for one at https://aristotle.harmonic.fun)
-- git
-- python3
 - elan
 
 ## Setup
 
-Run the configuration script from the root of the repo to set up the environment (Lean, Mathlib, Python dependencies):
 ```bash
 ./scripts/configure.sh
 ```
 
-## Usage
+## Cleanup
 
-To solve a problem, call from the root of the repo:
-```bash
-./scripts/solve.sh
-```
-
-On first run, you'll be prompted to create an API key file - follow the prompt's instruction to place it in the correct location. Select a problem from the interactive list. Server responses will be saved to `server_responses/` once complete.
-
-To check the status of submitted problems on the Aristotle API (queued, in progress, completed):
-```bash
-./scripts/status.sh
-```
-
-To collect a completed solution from the server (only needed if `solve.sh` was interrupted locally):
-```bash
-./scripts/get_solution.sh
-```
-
-To clean up all generated files (venv, .lake, API key):
 ```bash
 ./scripts/clear.sh
 ```
@@ -43,8 +21,5 @@ To clean up all generated files (venv, .lake, API key):
 ## Notes
 
 - Uses Lean `v4.28.0` and Mathlib aligned with current Aristotle.
-- When versions update (Lean/Mathlib/API): edit `lean-toolchain` and `lakefile.toml`, then run `./scripts/clear.sh` and `./scripts/configure.sh`.
-- The problem suite is defined in the `problems/` directory and can be extended with additional `.lean` files.
-- Some server responses require minor local fixes (e.g., adding `noncomputable`, `import Mathlib`, or `set_option maxHeartbeats 0`).
-
-
+- When versions update: edit `lean-toolchain` and `lakefile.toml`, then run `./scripts/clear.sh` and `./scripts/configure.sh`.
+- Problems are in `problems/`, past server responses in `server_responses/`.
