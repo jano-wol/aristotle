@@ -42,7 +42,7 @@ To clean up all generated files (venv, .lake, API key):
 
 ## Notes
 
-- Uses Lean `v4.24.0` and Mathlib aligned with current Aristotle.
+- Uses Lean `v4.28.0` and Mathlib aligned with current Aristotle.
 - When versions update (Lean/Mathlib/API): edit `lean-toolchain` and `lakefile.toml`, then run `./scripts/clear.sh` and `./scripts/configure.sh`.
 - The problem suite is defined in the `problems/` directory and can be extended with additional `.lean` files.
 - Some server responses require minor local fixes (e.g., adding `noncomputable`, `import Mathlib`, or `set_option maxHeartbeats 0`).
